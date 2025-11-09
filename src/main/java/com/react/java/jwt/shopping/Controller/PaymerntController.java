@@ -31,16 +31,16 @@ public class PaymerntController
     }
 
     @GetMapping("/{paymentId}")
-    public ResponseEntity <PaymentDTO> viewPaymentById (@PathVariable Long paymentId)
+    public ResponseEntity <PaymentDTO> getPayment (@PathVariable Long paymentId)
     {
-        PaymentDTO payment = paymentService.viewPaymentById(paymentId);
+        PaymentDTO payment = paymentService.getPayment(paymentId);
         return ResponseEntity.ok(payment);
     }
 
     @GetMapping
-    public ResponseEntity <List <PaymentDTO>> viewAllPayments ()
+    public ResponseEntity <List <PaymentDTO>> getPayments ()
     {
-        List <PaymentDTO> payments = paymentService.viewAllPayments();
+        List <PaymentDTO> payments = paymentService.getPayments();
         return ResponseEntity.ok(payments);
     }
 

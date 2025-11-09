@@ -1,5 +1,4 @@
 package com.react.java.jwt.shopping.Service;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -33,37 +32,23 @@ public class PaymentService implements PaymentInterface
     }
 
     @Override
-    public PaymentDTO viewPaymentById (Long paymentId)
+    public PaymentDTO getPayment (Long paymentId)
     {
-        Payment payment = paymentRepository.findById(paymentId).orElseThrow(null);
-
-        if (payment == null)
-            throw new PaymentNotFoundException(paymentId);
-        
+        Payment payment = paymentRepository.findById(paymentId).orElseThrow(() -> new PaymentNotFoundException(paymentId));
         return paymentMapper.toDTO(payment);
     }
 
     @Override
-    public List <PaymentDTO> viewAllPayments ()
+    public List <PaymentDTO> getPayments ()
     {
-        List <Payment> payments = paymentRepository.findAll();
-        List <PaymentDTO> paymentDTOs = new ArrayList<>();
-
-        for (Payment payment : payments)
-        {
-            paymentDTOs.add(paymentMapper.toDTO(payment));
-        }
-
-        return paymentDTOs;
+        return paymentRepository.findAll().stream().map(paymentMapper :: toDTO).toList();
     }
 
     @Override
     public PaymentDTO updatePayment (Long paymentId, PaymentDTO paymentDTO)
     {
-        Payment payment = paymentRepository.findById(paymentId).orElseThrow(null);
+        Payment payment = paymentRepository.findById(paymentId).orElseThrow(() -> new PaymentNotFoundException(paymentId));
 
-        if (payment == null)
-            throw new PaymentNotFoundException(paymentId);
         if (paymentDTO.getPaymentAmount() > 0)
             paymentDTO.setPaymentAmount(paymentDTO.getPaymentAmount());
         if (paymentDTO.getPaymentStatus() != null)
@@ -78,11 +63,7 @@ public class PaymentService implements PaymentInterface
     @Override
     public void deletePayment (Long paymentId)
     {
-        Payment payment = paymentRepository.findById(paymentId).orElseThrow(null);
-
-        if (payment == null)
-            throw new PaymentNotFoundException(paymentId);
-
+        Payment payment = paymentRepository.findById(paymentId).orElseThrow(() -> new PaymentNotFoundException(paymentId));
         paymentRepository.delete(payment);
     }
 }

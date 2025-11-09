@@ -1,5 +1,6 @@
 package com.react.java.jwt.shopping.Controller;
 import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,8 +10,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.react.java.jwt.shopping.DTO.OrderDTO;
 import com.react.java.jwt.shopping.Service.OrderService;
+
 import lombok.RequiredArgsConstructor;
 
 @RestController             
@@ -28,16 +31,16 @@ public class OrderController
      }
 
      @GetMapping("/{orderId}")
-     public ResponseEntity <OrderDTO> viewOrderById (@PathVariable Long orderId)
+     public ResponseEntity <OrderDTO> getOrder (@PathVariable Long orderId)
      {
-        OrderDTO order = orderService.viewOrderById(orderId);
+        OrderDTO order = orderService.getOrder (orderId);
         return ResponseEntity.ok(order);
      }
 
      @GetMapping
-     public ResponseEntity <List <OrderDTO>> viewAllOrders ()
+     public ResponseEntity <List <OrderDTO>> getOrders ()
      {
-        List <OrderDTO> orders = orderService.viewAllOrders();
+        List <OrderDTO> orders = orderService.getOrders();
         return ResponseEntity.ok(orders);
      }
 

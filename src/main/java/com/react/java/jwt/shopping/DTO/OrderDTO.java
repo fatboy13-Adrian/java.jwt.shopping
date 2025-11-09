@@ -18,7 +18,7 @@ public class OrderDTO
 
     @NotNull(message = "Order amount is required")
     @Min(value = 0, message = "Order amount cannot be negative")
-    private double amount;
+    private double orderAmount;
 
     @NotNull(message = "Order status is required!")
     private OrderStatus orderStatus;

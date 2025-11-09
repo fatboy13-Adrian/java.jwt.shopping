@@ -1,5 +1,6 @@
 package com.react.java.jwt.shopping.Controller;
 import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,8 +10,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.react.java.jwt.shopping.DTO.ProductDTO;
 import com.react.java.jwt.shopping.Service.ProductService;
+
 import lombok.RequiredArgsConstructor;
 
 @RestController             
@@ -23,29 +26,25 @@ public class ProductController
     @PostMapping("/create")
     public ResponseEntity<ProductDTO> createProduct(@RequestBody ProductDTO productDTO)
     {
-        ProductDTO createdProduct = productService.createProduct(productDTO);
-        return ResponseEntity.ok(createdProduct);
+        return ResponseEntity.ok(productService.createProduct(productDTO));
     }
 
     @GetMapping("/{productId}")
-    public ResponseEntity<ProductDTO> viewProductById(@PathVariable Long productId)
+    public ResponseEntity<ProductDTO> getProduct(@PathVariable Long productId)
     {
-        ProductDTO product = productService.viewProductById(productId);
-        return ResponseEntity.ok(product);
+        return ResponseEntity.ok(productService.getProduct(productId));
     }
 
     @GetMapping
-    public ResponseEntity<List<ProductDTO>> viewAllProducts()
+    public ResponseEntity<List<ProductDTO>> getProducts()
     {
-        List<ProductDTO> products = productService.viewAllProducts();
-        return ResponseEntity.ok(products);
+        return ResponseEntity.ok(productService.getProducts());
     }
 
     @PatchMapping("/{productId}")
     public ResponseEntity<ProductDTO> updateProduct(@PathVariable Long productId, @RequestBody ProductDTO productDTO)
     {
-        ProductDTO productDto = productService.updateProduct(productDTO, productId); 
-        return ResponseEntity.ok(productDto);
+        return ResponseEntity.ok(productService.updateProduct(productDTO, productId));
     }
 
     @DeleteMapping("/{productId}")

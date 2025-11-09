@@ -1,5 +1,4 @@
 package com.react.java.jwt.shopping.Service;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -33,42 +32,27 @@ public class OrderService implements OrderInterface
     }
 
     @Override
-    public OrderDTO viewOrderById (Long orderId)
+    public OrderDTO getOrder (Long orderId)
     {
-        Order order = orderRepository.findById(orderId).orElseThrow(null);
-
-        if (order == null)
-            throw new OrderNotFoundException(orderId);
-        
+        Order order = orderRepository.findById(orderId).orElseThrow(() -> new OrderNotFoundException(orderId));
         return orderMapper.toDTO(order);
     }
 
     @Override
-    public List<OrderDTO> viewAllOrders() 
+    public List<OrderDTO> getOrders() 
     {
-        List<Order> orders = orderRepository.findAll();
-        List<OrderDTO> orderDTOs = new ArrayList<>();
-
-        for (Order order : orders)
-        {
-            orderDTOs.add(orderMapper.toDTO(order));
-        }
-
-        return orderDTOs;
+        return orderRepository.findAll().stream().map(orderMapper :: toDTO).toList();
     }
 
     @Override
     public OrderDTO updateOrder(Long orderId, OrderDTO orderDTO)
     {
-        Order order = orderRepository.findById(orderId).orElseThrow(null);
+        Order order = orderRepository.findById(orderId).orElseThrow(() -> new OrderNotFoundException(orderId));
 
-        if (order == null)
-            throw new OrderNotFoundException(orderId);
-
-        if (orderDTO.getAmount() > 0)
-            order.setAmount(orderDTO.getAmount());
+        if (orderDTO.getOrderAmount() > 0)
+            order.setOrderAmount(orderDTO.getOrderAmount());
         if (orderDTO.getOrderStatus() != null)
-            order.setStatus(orderDTO.getOrderStatus());
+            order.setOrderStatus(orderDTO.getOrderStatus());
         if (orderDTO.getOrderDate() != null)
             order.setOrderDate(orderDTO.getOrderDate());
 
@@ -79,11 +63,7 @@ public class OrderService implements OrderInterface
     @Override
     public void deleteOrder(Long orderId)
     {
-        Order order = orderRepository.findById(orderId).orElseThrow(null);
-
-        if (order == null)
-            throw new OrderNotFoundException(orderId);
-
+        Order order = orderRepository.findById(orderId).orElseThrow(() -> new OrderNotFoundException(orderId));
         orderRepository.delete(order);
     }    
 }

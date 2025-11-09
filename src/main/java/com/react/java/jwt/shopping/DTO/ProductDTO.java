@@ -22,4 +22,7 @@ public class ProductDTO
     @NotNull(message = "Product quantity is required")
     @Min(value = 0, message = "Product quantity cannot be negative")
     private Integer productQty;
+
+    @Min(value = 0, message = "Product price cannot be negative")
+    private Double productPrice;
 }
