@@ -1,6 +1,6 @@
 package com.react.java.jwt.shopping.Controller;
-import java.util.List;
 
+import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,51 +10,43 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.react.java.jwt.shopping.DTO.OrderDTO;
 import com.react.java.jwt.shopping.Service.OrderService;
-
 import lombok.RequiredArgsConstructor;
 
-@RestController             
+@RestController
 @RequestMapping("/orders")
-@RequiredArgsConstructor    
-public class OrderController 
-{
-    private final OrderService orderService;
+@RequiredArgsConstructor
+public class OrderController {
+   private final OrderService orderService;
 
-     @PostMapping("/create")
-     public ResponseEntity <OrderDTO> createOrder(@RequestBody OrderDTO orderDTO)
-     {
-        OrderDTO createdOrder = orderService.createOrder(orderDTO);
-        return ResponseEntity.ok(createdOrder);
-     }
+   @PostMapping("/create")
+   public ResponseEntity<OrderDTO> createOrder(@RequestBody OrderDTO orderDTO) {
+      OrderDTO createdOrder = orderService.createOrder(orderDTO);
+      return ResponseEntity.ok(createdOrder);
+   }
 
-     @GetMapping("/{orderId}")
-     public ResponseEntity <OrderDTO> getOrder (@PathVariable Long orderId)
-     {
-        OrderDTO order = orderService.getOrder (orderId);
-        return ResponseEntity.ok(order);
-     }
+   @GetMapping("/{orderId}")
+   public ResponseEntity<OrderDTO> getOrder(@PathVariable Long orderId) {
+      OrderDTO order = orderService.getOrder(orderId);
+      return ResponseEntity.ok(order);
+   }
 
-     @GetMapping
-     public ResponseEntity <List <OrderDTO>> getOrders ()
-     {
-        List <OrderDTO> orders = orderService.getOrders();
-        return ResponseEntity.ok(orders);
-     }
+   @GetMapping
+   public ResponseEntity<List<OrderDTO>> getOrders() {
+      List<OrderDTO> orders = orderService.getOrders();
+      return ResponseEntity.ok(orders);
+   }
 
-     @PatchMapping("/{orderId}")
-     public ResponseEntity <OrderDTO> updateOrder (@PathVariable Long orderId, OrderDTO orderDTO)
-     {
-        OrderDTO orderDto = orderService.updateOrder(orderId, orderDTO); 
-        return ResponseEntity.ok(orderDto);
-     }
+   @PatchMapping("/{orderId}")
+   public ResponseEntity<OrderDTO> updateOrder(@PathVariable Long orderId, OrderDTO orderDTO) {
+      OrderDTO orderDto = orderService.updateOrder(orderId, orderDTO);
+      return ResponseEntity.ok(orderDto);
+   }
 
-     @DeleteMapping("/{orderId}")
-     public ResponseEntity <OrderDTO> deleteOrder(@PathVariable Long orderId)
-     {
-        orderService.deleteOrder(orderId);
-        return ResponseEntity.noContent().build(); 
-     }
+   @DeleteMapping("/{orderId}")
+   public ResponseEntity<OrderDTO> deleteOrder(@PathVariable Long orderId) {
+      orderService.deleteOrder(orderId);
+      return ResponseEntity.noContent().build();
+   }
 }
